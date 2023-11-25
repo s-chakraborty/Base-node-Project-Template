@@ -3,6 +3,7 @@ const { StatusCodes } = require('http-status-codes');
 const { AirplaneService } = require('../services');
 const { SuccessResponse,ErrorResponse } = require('../utils/common');
 
+
 /**
  * POST : /airplanes 
  * req-body {modelNumber: 'airbus320', capacity: 200}
@@ -44,7 +45,7 @@ async function getAirplanes(req,res){
 
 async function getAirplane(req,res){
     try {
-        const airplanes = await AirplaneService.getAirplane(req.params.id);
+        const airplanes = await AirplaneService.getAirplane(req.params.id.body);
         SuccessResponse.data = airplanes;
         return res
                 .status(StatusCodes.OK)
@@ -73,9 +74,34 @@ async function deleteAirplane(req,res){
     }
 }
 
+async function updateAirplane(req,res) {
+    try{
+        requestBody = {};
+        requestData = req.body;
+        if(req.body.modelNumber){
+            requestBody.modelNumber = requestData.modelNumber;
+        }
+        if(req.body.capacity){
+            requestBody.capacity = requestData.capacity;
+        }
+        
+        const airplane = await AirplaneService.updateAirplane(req.params.id, requestBody);
+        SuccessResponse.data = airplane;
+        return res
+                .status(StatusCodes.ACCEPTED)
+                .json(SuccessResponse);
+    } catch(error) {
+        ErrorResponse.error = error;
+        return res
+            .status(error.statusCode)
+            .json(ErrorResponse);
+    }
+}
+
 module.exports = {
     createAirplane,
     getAirplanes,
     getAirplane,
-    deleteAirplane
+    deleteAirplane,
+    updateAirplane
 }

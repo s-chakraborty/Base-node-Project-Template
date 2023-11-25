@@ -1,3 +1,4 @@
+const AppError = require("../utils/errors/app-error");
 
 
 class CrudRepository {
