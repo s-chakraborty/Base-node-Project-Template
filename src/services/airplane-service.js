@@ -1,7 +1,9 @@
 const { StatusCodes }  = require('http-status-codes');
+
 const  {AirplaneRepository}  = require('../repositories');
+
 const  AppError  = require('../utils/errors/app-error');
-const { SuccessResponse } = require('../utils/common');
+
 
 
 const airplaneRepository = new AirplaneRepository();
@@ -57,7 +59,7 @@ async function updateAirplane(id,data){
     try{    
         const airplane = await airplaneRepository.update(id,data);
         if(!airplane[0]){
-            throw new AppError('Cannot fetch data of the required Airplane', StatusCodes.NOT_FOUND);
+            throw new AppError('Requested id is not present', StatusCodes.NOT_FOUND);
         }
         return airplane;
     } catch(error) {

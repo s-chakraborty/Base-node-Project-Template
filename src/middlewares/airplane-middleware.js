@@ -23,6 +23,7 @@ function validateUpdateRequest(req,res,next){
                 . status(StatusCodes.BAD_REQUEST)
                 . json(ErrorResponse)
     }
+    next();
 }
 
 
