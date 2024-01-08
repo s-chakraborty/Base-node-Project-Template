@@ -4,16 +4,15 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.addConstraint('Airports', {
-      fields: ['cityId'],
-      type: 'foreign key',
+      type: 'FOREIGN KEY',
       name: 'city_fkey_constraint',
-      references: { //Required field
+      fields: ['cityId'],
+      references: {
         table: 'Cities',
         field: 'id'
       },
-      onDelete: 'cascade',
-      onUpdate: 'cascade'
-    });
+      onDelete: 'CASCADE',
+     });
   },
 
   async down (queryInterface, Sequelize) {
