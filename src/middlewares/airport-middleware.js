@@ -21,13 +21,6 @@ function validateCreateRequest(req,res,next){
                 . status(StatusCodes.BAD_REQUEST)
                 . json(ErrorResponse)
     }
-    if(!req.body.address){
-        ErrorResponse.message = "something went wrong while creating airport";
-        ErrorResponse.error =new AppError(['address not found in the oncomming request'],StatusCodes.BAD_REQUEST);
-        return res
-                . status(StatusCodes.BAD_REQUEST)
-                . json(ErrorResponse)
-    }
     if(!req.body.cityId){
         ErrorResponse.message = "something went wrong while creating airport";
         ErrorResponse.error =new AppError(['cityID not found in the oncomming request'],StatusCodes.BAD_REQUEST);
